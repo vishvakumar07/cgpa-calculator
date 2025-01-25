@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGPA Calculator</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      margin: 0;
+      background: linear-gradient(135deg, #d2a864, #F7E7CE);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    
+    .left-align {
+      text-align: left;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+      font-size: 28px;
+    }
+
+    img {
+      max-width: 350px;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    select {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s;
+    }
+
+    select:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      width: 150px;
+      align-self: center;
+      padding: auto;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    table {
+      margin-top: 30px;
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .contact {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .contact a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .contact a img {
+      width: 34px;
+      height: 34px;
+      align-items: center;
+    }
+
+    .contact a:hover {
+      transform: scale(1.1);
+      align-items: center;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .popup h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .popup button {
+      margin-top: 20px;
+      background-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img id="college-logo" src="secelogo.png" alt="Sri Eshwar College of Engineering">
+    <h1>CGPA CALCULATOR</h1>
+
+    <form id="cgpa-form">
+    <div class="left-align">
+      <label for="credits">Enter Credit:</label>
+    </div>
+      <select id="credits">
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+
+    <div class="left-align">
+      <label for="grades">Enter Grade:</label>
+    </div>
+      <select id="grades">
+        <option value="10">O</option>
+        <option value="9">A+</option>
+        <option value="8">A</option>
+        <option value="7">B+</option>
+        <option value="6">B</option>
+        <option value="5">C</option>
+      </select>
+      <button type="button" onclick="addToTable()"><b>CALCULATE</b></button>
+    </form>
+
+    <div class="result" id="result">Total CGPA: <span id="cgpa">0</span></div>
+
+    <table id="cgpa-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Grade</th>
+          <th>Credits</th>
+          <th>Quality Points</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="contact">
+      <a href="https://www.linkedin.com/in/vishvakumar4067/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/vishvakumar07" target="_blank">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+      </a>
+      <button onclick="showPopup()"><b>CONTACT @VISHVA KUMAR</b></button>
+    </div>
+  </div>
+
+  <div class="popup" id="contact-popup">
+    <h2>Contact @VISHVA KUMAR</h2>
+    <p><b>Email: vishvakumar.ab@gmail.com</b></p>
+    <button onclick="hidePopup()">Close</button>
+  </div>
+
+  <script>
+    let totalQualityPoints = 0;
+    let totalCredits = 0;
+    let subjectCount = 1;
+
+    function addToTable() {
+      const credit = parseInt(document.getElementById('credits').value);
+      const grade = parseFloat(document.getElementById('grades').value);
+      const qualityPoints = credit * grade;
+
+      totalQualityPoints += qualityPoints;
+      totalCredits += credit;
+
+      const table = document.getElementById('cgpa-table').querySelector('tbody');
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>Subject ${subjectCount++}</td>
+        <td>${grade}</td>
+        <td>${credit}</td>
+        <td>${qualityPoints}</td>
+      `;
+
+      table.appendChild(row);
+
+      const cgpa = totalQualityPoints / totalCredits;
+      document.getElementById('cgpa').textContent = cgpa.toFixed(2);
+    }
+
+    function showPopup() {
+      document.getElementById('contact-popup').style.display = 'block';
+    }
+
+    function hidePopup() {
+      document.getElementById('contact-popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
